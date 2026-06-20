@@ -1,0 +1,38 @@
+[
+  {
+    "lang": "Portuguese",
+    "level": "CEFR C2 - Native",
+    "icon": "🇧🇷",
+    "details": "Native speaker • Expertise in technical, academic, and diplomatic writing, alongside trade and logistics translation and interpretation"
+  },
+  {
+    "lang": "English",
+    "level": "CEFR C2",
+    "icon": "🇬🇧",
+    "details": "Full fluency • Expertise in technical, academic, and diplomatic writing, alongside trade and logistics translation and interpretation"
+  },
+  {
+    "lang": "Spanish",
+    "level": "CEFR C2",
+    "icon": "🇪🇸",
+    "details": "Full fluency • Expertise in technical, academic, and diplomatic writing, alongside trade and logistics translation and interpretation"
+  },
+  {
+    "lang": "Italian",
+    "level": "CEFR A2",
+    "icon": "🇮🇹",
+    "details": "Elementary • Focus on export documentation and international trade terminology"
+  },
+  {
+    "lang": "Korean",
+    "level": "TOPIK I-1",
+    "icon": "🇰🇷",
+    "details": "Beginner • Hangeul, Intercultural communication and diplomacy focus"
+  },
+  {
+    "lang": "Japanese",
+    "level": "JLPT N5",
+    "icon": "🇯🇵",
+    "details": "Beginner • Hiragana, katakana, and basic vocabulary studies"
+  }
+]
