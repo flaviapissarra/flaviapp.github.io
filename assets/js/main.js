@@ -130,14 +130,21 @@ async function renderLanguages() {
   const grid = document.getElementById('languages-grid');
   if (!languages || !grid) return;
 
-  grid.innerHTML = languages.map(l => `
-    <div class="language-card">
-      <div class="language-icon">${k(l, 'icon')}</div>
-      <div class="language-name">${k(l, 'lang')}</div>
-      <div class="language-level">${k(l, 'level')}</div>
-      <p class="language-details">${k(l, 'details')}</p>
-    </div>
-  `).join('');
+  grid.innerHTML = languages.map(l => {
+    const icon = k(l, 'icon').trim();
+    const lang = k(l, 'lang').trim();
+    const level = k(l, 'level').trim();
+    const details = k(l, 'details').trim();
+    
+    const firstDetail = details.split('•')[0].trim(); 
+
+    return `
+      <div class="language-card">
+        <div class="lang-title">${icon} ${lang} - ${level} - ${firstDetail}</div>
+        <p class="lang-desc">${details.replace(firstDetail + ' • ', '')}</p>
+      </div>
+    `;
+  }).join('');
 }
 
 // ============================================
