@@ -1,0 +1,29 @@
+[
+  {
+    "id": "freight-dashboard",
+    "title": "Cross-Border Freight Cost Dashboard",
+    "tools": ["Power BI", "SQL", "Python"],
+    "domain": "logistics",
+    "description": "Mapped shipping variances across 12 major ports. Automated reporting reduced manual data cleaning by 65%.",
+    "public_link": "https://github.com/fppissarra/freight-demo",
+    "request_access": "https://forms.gle/your-access-form"
+  },
+  {
+    "id": "trade-kpi-tracker",
+    "title": "Import/Export KPI Tracker",
+    "tools": ["Power BI", "Excel", "DAX"],
+    "domain": "trade",
+    "description": "Real-time monitoring of clearance times, tariff impacts, and compliance flags for SME logistics clients.",
+    "public_link": "https://github.com/fppissarra/trade-kpi",
+    "request_access": "https://forms.gle/your-access-form"
+  },
+  {
+    "id": "edu-engagement-analysis",
+    "title": "Language Learning Engagement Analysis",
+    "tools": ["Python", "Pandas", "Matplotlib"],
+    "domain": "education",
+    "description": "Analyzed student progress metrics across 3 language programs to optimize curriculum pacing and resource allocation.",
+    "public_link": "https://github.com/fppissarra/edu-analysis",
+    "request_access": "https://forms.gle/your-access-form"
+  }
+]
