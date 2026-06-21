@@ -1,9 +1,9 @@
 /* ============================================
-   HERO SECTION
+   HERO SECTION - LARGURA TOTAL
    ============================================ */
 .hero {
   padding: var(--space-12) 0 var(--space-8);
-  max-width: 800px;
+  max-width: 100%; /* Ocupa toda a largura disponível */
   min-height: 40vh;
   display: flex;
   flex-direction: column;
@@ -83,7 +83,7 @@
 .btn-ghost:hover { border-color: var(--color-text); }
 
 /* ============================================
-   HOME GRID
+   HOME GRID - 3 COLUNAS LARGAS
    ============================================ */
 .home-grid {
   display: grid;
@@ -93,6 +93,7 @@
   padding-top: var(--space-8);
   border-top: 1px solid var(--color-border);
   min-height: 35vh;
+  width: 100%; /* Largura total */
 }
 
 .home-card {
@@ -393,7 +394,7 @@
 }
 
 /* ============================================
-   LANGUAGES
+   LANGUAGES - DESIGN TIPROGRÁFICO E LIMPO
    ============================================ */
 .languages-grid {
   display: grid;
