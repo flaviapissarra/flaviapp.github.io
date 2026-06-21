@@ -437,7 +437,7 @@
 }
 
 /* ============================================
-   CONTACT
+   CONTACT - LAYOUT HORIZONTAL EM 4 COLUNAS
    ============================================ */
 .contact-card {
   background: var(--color-surface);
@@ -445,7 +445,7 @@
   border-radius: var(--radius-lg);
   padding: var(--space-8);
   text-align: center;
-  max-width: 600px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -458,14 +458,14 @@
 
 .contact-card > p {
   color: var(--color-text-muted);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
   font-size: var(--text-sm);
 }
 
 .contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
 }
 
 .contact-link {
@@ -494,6 +494,23 @@
 
 .contact-link:hover .contact-arrow {
   transform: translateX(4px);
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  .contact-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-card {
+    padding: var(--space-6);
+  }
 }
 
 /* ============================================
