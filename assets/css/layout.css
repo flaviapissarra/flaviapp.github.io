@@ -20,7 +20,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Remove scroll global */
+  overflow: hidden;
 }
 
 /* HEADER / STEPPER */
@@ -32,7 +32,7 @@ body {
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--color-border);
   height: var(--header-height);
-  flex-shrink: 0; /* Não encolhe */
+  flex-shrink: 0;
 }
 
 .header-inner {
@@ -108,15 +108,15 @@ body {
   background: var(--color-border);
 }
 
-/* MAIN - OCUPA TODO O ESPAÇO RESTANTE */
+/* MAIN */
 .site-main {
   flex: 1;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-8) var(--space-6); /* Reduzido de var(--space-12) */
+  padding: var(--space-8) var(--space-6);
   width: 100%;
-  overflow-y: auto; /* Permite scroll interno se necessário */
-  height: calc(100vh - var(--header-height) - 60px); /* Altura total menos header e footer */
+  overflow-y: auto;
+  height: calc(100vh - var(--header-height) - 60px);
 }
 
 .section {
@@ -132,7 +132,7 @@ body {
 }
 
 .site-footer {
-  padding: var(--space-4) var(--space-6); /* Reduzido */
+  padding: var(--space-4) var(--space-6);
   text-align: center;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
@@ -140,10 +140,10 @@ body {
   flex-shrink: 0;
 }
 
-/* MOBILE - PODE TER SCROLL */
+/* MOBILE */
 @media (max-width: 768px) {
   body {
-    overflow-y: auto; /* Permite scroll no mobile */
+    overflow-y: auto;
     height: auto;
   }
   
@@ -159,6 +159,6 @@ body {
   .step:not(:last-child)::after { width: 8px; right: -4px; }
   :root {
     --text-4xl: 2.25rem;
-    --text-5xl: 2.5rem; /* Reduzido */
+    --text-5xl: 2.5rem;
   }
 }
