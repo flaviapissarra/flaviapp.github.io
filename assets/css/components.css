@@ -21,7 +21,7 @@
 .hero-title {
   font-family: var(--font-serif);
   font-size: var(--text-5xl);
-  font-weight: 400;
+  font-weight: 250;
   line-height: 1.05;
   letter-spacing: -0.02em;
   margin-bottom: var(--space-4);
@@ -30,7 +30,7 @@
 .hero-subtitle {
   font-size: var(--text-lg);
   color: var(--color-accent);
-  font-weight: 500;
+  font-weight: 250;
   margin-bottom: var(--space-6);
 }
 
