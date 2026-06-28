@@ -3,9 +3,13 @@
   --color-surface: #FFFFFF;
   --color-text: #1C1917;
   --color-text-muted: #78716C;
-  --color-accent: #0F766E;
-  --color-accent-light: #CCFBF1;
-  --color-accent-dark: #115E59;
+  
+  /* --- CORES ATUALIZADAS (Azul do vestido) --- */
+  --color-accent: #157DEC;
+  --color-accent-light: #E8F2FE;
+  --color-accent-dark: #0D62C2;
+  /* ------------------------------------------- */
+
   --color-border: #E7E5E4;
   --color-border-strong: #D6D3D1;
 
