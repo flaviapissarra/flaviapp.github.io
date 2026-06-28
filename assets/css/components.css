@@ -1,9 +1,11 @@
 /* ============================================
-   HERO SECTION - OTIMIZADO PARA CABER NA TELA
+   HERO SECTION
    ============================================ */
 .hero {
   padding: var(--space-8) 0 var(--space-6);
   max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .hero-greeting {
@@ -31,17 +33,18 @@
 }
 
 .hero-description {
-  font-size: var(--text-sm); /* Fonte um pouco menor para caber melhor */
+  font-size: var(--text-sm);
   color: var(--color-text-muted);
-  max-width: 100%; /* Remove o limite de 600px, fazendo o texto correr a tela toda */
+  max-width: 100%;
   margin-bottom: var(--space-6);
-  line-height: 1.4; /* Linhas um pouco mais compactas */
+  line-height: 1.4;
 }
 
 .hero-actions {
   display: flex;
   gap: var(--space-3);
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* ============================================
@@ -78,7 +81,7 @@
 .btn-ghost:hover { border-color: var(--color-text); }
 
 /* ============================================
-   HOME GRID - OTIMIZADO
+   HOME GRID
    ============================================ */
 .home-grid {
   display: grid;
@@ -124,28 +127,6 @@
 }
 
 /* ============================================
-   SECTIONS GENERAL - OTIMIZADO
-   ============================================ */
-.section-header {
-  margin-bottom: var(--space-6);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.section-title {
-  font-family: var(--font-serif);
-  font-size: var(--text-3xl);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-2);
-}
-
-.section-subtitle {
-  color: var(--color-text-muted);
-  font-size: var(--text-base);
-}
-
-/* ============================================
    MASONRY GRID (PROJECTS)
    ============================================ */
 .masonry-grid {
@@ -167,7 +148,7 @@
 .project-card:hover {
   border-color: var(--color-accent);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px -4px rgba(15, 118, 110, 0.15);
+  box-shadow: 0 4px 12px -4px rgba(21, 125, 236, 0.15);
 }
 
 .project-domain {
@@ -381,7 +362,7 @@
 }
 
 /* ============================================
-   LANGUAGES - DESIGN TIPROGRÁFICO E LIMPO
+   LANGUAGES
    ============================================ */
 .languages-grid {
   display: grid;
@@ -484,7 +465,7 @@
 }
 
 /* ============================================
-   MOBILE OPTIMIZATIONS
+   MOBILE
    ============================================ */
 @media (max-width: 768px) {
   .hero {
