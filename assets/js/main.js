@@ -173,12 +173,13 @@ async function renderTimeline() {
   el.innerHTML = data.map(i => `
     <div class="timeline-item" id="${i.id}">
       <div class="timeline-dot"></div>
-      ${k(i, 'icon') ? `<div class="timeline-icon">${k(i, 'icon')}</div>` : ''}
-      <div class="timeline-type">${k(i, 'type')}</div>
-      <div class="timeline-date">${k(i, 'date')}</div>
+      <div class="timeline-header">
+        <div class="timeline-type">${k(i, 'type')}</div>
+        <div class="timeline-date">${k(i, 'date')}</div>
+      </div>
+      <h3 class="timeline-title">${k(i, 'title')}</h3>
       <div class="timeline-company">${k(i, 'company')}</div>
-      <h3>${k(i, 'title')}</h3>
-      <p>${k(i, 'description')}</p>
+      <p class="timeline-description">${k(i, 'description')}</p>
     </div>
   `).join('');
 }
