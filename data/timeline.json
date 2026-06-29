@@ -12,7 +12,7 @@
     {
       "id": "ufes-nl",
       "category": "language-edu",
-      "label": "UFES · NL",
+      "label": "Ufes · English Language & Literature",
       "title": "English Language and Literature",
       "startYear": 2011,
       "endYear": 2015,
@@ -22,7 +22,7 @@
     {
       "id": "sedu-cei",
       "category": "language-edu",
-      "label": "SEDU · CEI",
+      "label": "SEDU · Spanish Language & Literature",
       "title": "Spanish Language and Literature",
       "startYear": 2012,
       "endYear": 2015,
@@ -32,7 +32,7 @@
     {
       "id": "ifes-ti",
       "category": "formal-edu",
-      "label": "IFES · TI",
+      "label": "IFES · Technical Diploma in Computer Science",
       "title": "Technical Diploma in Computer Science",
       "startYear": 2015,
       "endYear": 2018,
@@ -42,7 +42,7 @@
     {
       "id": "ifes-llp",
       "category": "formal-edu",
-      "label": "IFES · LLP",
+      "label": "IFES · Licentiate Degree in Letters",
       "title": "Licentiate Degree in Letters",
       "startYear": 2019,
       "endYear": 2023,
@@ -52,7 +52,7 @@
     {
       "id": "ifes-geepi",
       "category": "formal-edu",
-      "label": "IFES · GEEPI",
+      "label": "IFES · Special Education Management",
       "title": "Graduate Certificate · Special Education",
       "startYear": 2025,
       "endYear": 2025,
@@ -62,7 +62,7 @@
     {
       "id": "coined",
       "category": "language-school",
-      "label": "COINED",
+      "label": "Coined · Intensive Language Program",
       "title": "Intensive Language Program",
       "startYear": 2016,
       "endYear": 2017,
@@ -72,7 +72,7 @@
     {
       "id": "vale",
       "category": "corporate",
-      "label": "VALE",
+      "label": "Vale · Data Scientist Intern",
       "title": "Data Scientist Intern",
       "startYear": 2018,
       "endYear": 2018,
@@ -82,7 +82,7 @@
     {
       "id": "amt",
       "category": "corporate",
-      "label": "AMT",
+      "label": "ArcelorMittal · Data Scientist Intern",
       "title": "Data Scientist Intern",
       "startYear": 2019,
       "endYear": 2019,
@@ -92,7 +92,7 @@
     {
       "id": "esl-teacher",
       "category": "teaching",
-      "label": "ESL Teacher & Translator",
+      "label": "Preply & Number One · ESL Teacher & Translator",
       "title": "Teaching, Translation & LLM Evaluation",
       "startYear": 2016,
       "endYear": 2026,
