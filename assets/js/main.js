@@ -78,29 +78,127 @@ const k = (obj, key) => {
 };
 
 // ============================================
-// RENDER: PROJECTS
+// RENDER: PROJECTS (CARROSSEL)
 // ============================================
 async function renderProjects() {
   const projects = await loadJSON('data/projects.json');
   const grid = document.getElementById('projects-grid');
   if (!projects || !grid) return;
 
-  grid.innerHTML = projects.map(p => `
-    <article class="project-card">
-      <div class="project-domain">${k(p, 'domain')}</div>
-      <h3>${k(p, 'title')}</h3>
-      <p>${k(p, 'description')}</p>
-      ${Array.isArray(k(p, 'tools')) ? `
-        <div class="project-tools">
-          ${k(p, 'tools').map(t => `<span class="tool-tag">${t}</span>`).join('')}
-        </div>
-      ` : ''}
-      <div class="project-links">
-        ${k(p, 'public_link') ? `<a href="${k(p, 'public_link')}" target="_blank" rel="noopener" class="project-link">View code →</a>` : ''}
-        ${k(p, 'request_access') ? `<a href="${k(p, 'request_access')}" target="_blank" rel="noopener" class="project-link">Request demo access →</a>` : ''}
+  // Cria a estrutura do carrossel
+  grid.innerHTML = `
+    <div class="carousel-container">
+      <button class="carousel-btn prev" aria-label="Projeto anterior">‹</button>
+      <div class="carousel-track">
+        ${projects.map(p => `
+          <div class="carousel-slide">
+            <article class="project-card">
+              <div class="project-domain">${k(p, 'domain')}</div>
+              <h3>${k(p, 'title')}</h3>
+              <p>${k(p, 'description')}</p>
+              ${Array.isArray(k(p, 'tools')) ? `
+                <div class="project-tools">
+                  ${k(p, 'tools').map(t => `<span class="tool-tag">${t}</span>`).join('')}
+                </div>
+              ` : ''}
+              <div class="project-links">
+                ${k(p, 'public_link') ? `<a href="${k(p, 'public_link')}" target="_blank" rel="noopener" class="project-link">View code →</a>` : ''}
+                ${k(p, 'request_access') ? `<a href="${k(p, 'request_access')}" target="_blank" rel="noopener" class="project-link">Request demo access →</a>` : ''}
+              </div>
+            </article>
+          </div>
+        `).join('')}
       </div>
-    </article>
-  `).join('');
+      <button class="carousel-btn next" aria-label="Próximo projeto">›</button>
+      <div class="carousel-dots"></div>
+    </div>
+  `;
+
+  // Inicializa o carrossel
+  initCarousel();
+}
+
+// ============================================
+// CARROSSEL CONTROLS
+// ============================================
+function initCarousel() {
+  const container = document.querySelector('.carousel-container');
+  if (!container) return;
+
+  const track = container.querySelector('.carousel-track');
+  const slides = container.querySelectorAll('.carousel-slide');
+  const prevBtn = container.querySelector('.carousel-btn.prev');
+  const nextBtn = container.querySelector('.carousel-btn.next');
+  const dotsContainer = container.querySelector('.carousel-dots');
+
+  let currentIndex = 0;
+  let slidesPerView = getSlidesPerView();
+
+  // Cria os dots
+  const totalDots = Math.ceil(slides.length / slidesPerView);
+  dotsContainer.innerHTML = Array.from({ length: totalDots }, (_, i) => 
+    `<button class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></button>`
+  ).join('');
+
+  const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+  function getSlidesPerView() {
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+
+  function updateCarousel() {
+    const slideWidth = slides[0].offsetWidth;
+    const gap = parseInt(getComputedStyle(track).gap) || 16;
+    const offset = currentIndex * (slideWidth + gap);
+    
+    track.style.transform = `translateX(-${offset}px)`;
+
+    // Atualiza dots
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === Math.floor(currentIndex / slidesPerView));
+    });
+
+    // Atualiza botões
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= slides.length - slidesPerView;
+  }
+
+  function nextSlide() {
+    if (currentIndex < slides.length - slidesPerView) {
+      currentIndex++;
+      updateCarousel();
+    }
+  }
+
+  function prevSlide() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  }
+
+  // Event listeners
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const dotIndex = parseInt(dot.dataset.index);
+      currentIndex = dotIndex * slidesPerView;
+      updateCarousel();
+    });
+  });
+
+  // Atualiza no resize
+  window.addEventListener('resize', () => {
+    slidesPerView = getSlidesPerView();
+    updateCarousel();
+  });
+
+  // Inicializa
+  updateCarousel();
 }
 
 // ============================================
