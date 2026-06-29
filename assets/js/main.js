@@ -37,13 +37,12 @@ const k = (obj, key) => obj ? (obj[key] ?? obj[key.trim()] ?? '') : '';
 const formatTitle = (name) => name.replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
 
 // ============================================
-// 3. PROJETOS - DADOS HARDCODED (TESTE)
+// 3. PROJETOS (CARROSSEL - DADOS HARDCODED)
 // ============================================
 async function renderProjects() {
   const grid = document.getElementById('projects-grid');
   if (!grid) return;
 
-  // DADOS DE TESTE - funciona sem API
   const projectsData = [
     {
       domain: "LOGISTICS",
@@ -57,7 +56,7 @@ async function renderProjects() {
       domain: "AI/TRANSLATION",
       title: "GenAI Translation Evaluator",
       description: "Automated quality assessment for technical translations using LLMs and custom evaluation metrics.",
-      tools: ["Python", "OpenAI API", "Pandas", "JSON"],
+      tools: ["Python", "OpenAI API", "Pandas"],
       public_link: "#",
       request_access: "mailto:flaviapissarra+githubio@gmail.com"
     },
@@ -65,7 +64,7 @@ async function renderProjects() {
       domain: "NLP",
       title: "NLP Sentiment Analysis",
       description: "Sentiment analysis pipeline for multilingual customer feedback and trade communications.",
-      tools: ["Python", "NLTK", "Transformers", "Pandas"],
+      tools: ["Python", "NLTK", "Transformers"],
       public_link: "#",
       request_access: "mailto:flaviapissarra+githubio@gmail.com"
     },
@@ -149,22 +148,8 @@ function initCarousel() {
 }
 
 // ============================================
-// 4. OUTRAS SEÇÕES (JSON)
+// 4. TIMELINE (GANTT INTERATIVA)
 // ============================================
-async function renderTranslation() {
-  const data = await loadJSON('data/translations.json');
-  const grid = document.getElementById('translation-grid');
-  if (!data || !grid) return;
-  grid.innerHTML = data.map(t => `
-    <article class="translation-card">
-      <div class="translation-pair">${k(t, 'pair')}</div>
-      ${k(t, 'domains')?.length ? `<div class="project-tools">${k(t, 'domains').map(d => `<span class="tool-tag">${d}</span>`).join('')}</div>` : ''}
-      <p>${k(t, 'description')}</p>
-      ${k(t, 'excerpt') ? `<div class="translation-excerpt">"${k(t, 'excerpt')}"</div>` : ''}
-      ${k(t, 'request_access') ? `<a href="${k(t, 'request_access')}" target="_blank" class="project-link">Request sample →</a>` : ''}
-    </article>`).join('');
-}
-
 async function renderTimeline() {
   const data = await loadJSON('data/timeline.json');
   const el = document.getElementById('timeline');
@@ -173,7 +158,6 @@ async function renderTimeline() {
   const { startYear, endYear, categories, rows } = data;
   const totalYears = endYear - startYear + 1;
 
-  // Filtros por categoria
   const filtersHTML = `
     <div class="gantt-filters">
       <button class="filter-btn active" data-filter="all">All</button>
@@ -183,17 +167,16 @@ async function renderTimeline() {
     </div>
   `;
 
-  // Header com anos
   const yearsHTML = Array.from({ length: totalYears }, (_, i) => {
     const year = startYear + i;
-    return `<div class="gantt-year" style="left: ${(i / totalYears) * 100}%">${year}</div>`;
+    const leftPercent = (i / totalYears) * 100;
+    return `<div class="gantt-year" style="left: ${leftPercent}%">${year}</div>`;
   }).join('');
 
-  // Linhas (rows)
   const rowsHTML = rows.map(row => {
     const cat = categories[row.category];
-    const left = ((row.startYear - startYear) / totalYears) * 100;
-    const width = ((row.endYear - row.startYear + 1) / totalYears) * 100;
+    const leftPercent = ((row.startYear - startYear) / totalYears) * 100;
+    const widthPercent = ((row.endYear - row.startYear + 1) / totalYears) * 100;
     const isShort = (row.endYear - row.startYear) === 0;
 
     return `
@@ -201,12 +184,12 @@ async function renderTimeline() {
         <div class="gantt-row-label">${row.label}</div>
         <div class="gantt-row-track">
           <div class="gantt-bar ${isShort ? 'gantt-bar-short' : ''}" 
-               style="left: ${left}%; width: ${width}%; background: ${cat.color};"
+               style="left: ${leftPercent}%; width: ${widthPercent}%; background: ${cat.color};"
                data-title="${row.title}"
                data-institution="${row.institution}"
                data-date="${row.startYear}${row.endYear !== row.startYear ? '–' + row.endYear : ''}"
                data-description="${row.description}">
-            <span class="gantt-bar-label">${row.label}</span>
+            <span class="gantt-bar-label">${row.label.split('·')[1]?.trim() || row.label}</span>
           </div>
         </div>
       </div>
@@ -217,7 +200,8 @@ async function renderTimeline() {
     ${filtersHTML}
     <div class="gantt-container">
       <div class="gantt-header">
-        ${yearsHTML}
+        <div class="gantt-header-spacer"></div>
+        <div class="gantt-years-track">${yearsHTML}</div>
       </div>
       <div class="gantt-body">
         ${rowsHTML}
@@ -240,7 +224,6 @@ function initGanttInteractions() {
   const tooltip = document.getElementById('gantt-tooltip');
   const bars = document.querySelectorAll('.gantt-bar');
 
-  // Filtros
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -258,34 +241,46 @@ function initGanttInteractions() {
     });
   });
 
-  // Tooltip no hover
   bars.forEach(bar => {
     bar.addEventListener('mouseenter', (e) => {
-      const title = bar.dataset.title;
-      const institution = bar.dataset.institution;
-      const date = bar.dataset.date;
-      const description = bar.dataset.description;
       tooltip.innerHTML = `
-        <div class="tooltip-title">${title}</div>
-        <div class="tooltip-institution">${institution}</div>
-        <div class="tooltip-date">${date}</div>
-        <div class="tooltip-description">${description}</div>
+        <div class="tooltip-title">${bar.dataset.title}</div>
+        <div class="tooltip-institution">${bar.dataset.institution}</div>
+        <div class="tooltip-date">${bar.dataset.date}</div>
+        <div class="tooltip-description">${bar.dataset.description}</div>
       `;
       tooltip.classList.add('visible');
     });
-
     bar.addEventListener('mousemove', (e) => {
-      const rect = document.querySelector('.gantt-container').getBoundingClientRect();
-      tooltip.style.left = (e.clientX - rect.left + 15) + 'px';
-      tooltip.style.top = (e.clientY - rect.top + 15) + 'px';
+      tooltip.style.left = (e.clientX + 15) + 'px';
+      tooltip.style.top = (e.clientY + 15) + 'px';
     });
-
     bar.addEventListener('mouseleave', () => {
       tooltip.classList.remove('visible');
     });
   });
 }
 
+// ============================================
+// 5. TRANSLATION
+// ============================================
+async function renderTranslation() {
+  const data = await loadJSON('data/translations.json');
+  const grid = document.getElementById('translation-grid');
+  if (!data || !grid) return;
+  grid.innerHTML = data.map(t => `
+    <article class="translation-card">
+      <div class="translation-pair">${k(t, 'pair')}</div>
+      ${k(t, 'domains')?.length ? `<div class="project-tools">${k(t, 'domains').map(d => `<span class="tool-tag">${d}</span>`).join('')}</div>` : ''}
+      <p>${k(t, 'description')}</p>
+      ${k(t, 'excerpt') ? `<div class="translation-excerpt">"${k(t, 'excerpt')}"</div>` : ''}
+      ${k(t, 'request_access') ? `<a href="${k(t, 'request_access')}" target="_blank" class="project-link">Request sample →</a>` : ''}
+    </article>`).join('');
+}
+
+// ============================================
+// 6. LANGUAGES
+// ============================================
 async function renderLanguages() {
   const data = await loadJSON('data/languages.json');
   const grid = document.getElementById('languages-grid');
@@ -302,7 +297,7 @@ async function renderLanguages() {
 }
 
 // ============================================
-// 5. INICIALIZAÇÃO
+// 7. INICIALIZAÇÃO
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
