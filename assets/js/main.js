@@ -267,6 +267,96 @@ async function renderLanguages() {
     `;
   }).join('');
 }
+// ============================================
+// RENDER: PROJECTS (BUSCA DO GITHUB)
+// ============================================
+const GITHUB_API = 'https://api.github.com/repos/flaviapissarra/ctecl/contents/p';
+
+async function renderProjects() {
+  try {
+    // Busca a lista de pastas de projetos
+    const response = await fetch(GITHUB_API);
+    if (!response.ok) throw new Error('Failed to fetch projects');
+    
+    const items = await response.json();
+    // Filtra apenas pastas (diretórios)
+    const projects = items.filter(item => item.type === 'dir');
+    
+    // Busca metadata de cada projeto
+    const projectsData = await Promise.all(
+      projects.map(async (project) => {
+        try {
+          const metadataUrl = `${project.url}/metadata.json`;
+          const metadataRes = await fetch(metadataUrl);
+          if (metadataRes.ok) {
+            return await metadataRes.json();
+          }
+          // Se não tiver metadata.json, cria um objeto básico
+          return {
+            domain: 'PROJECT',
+            title: project.name.replace(/_/g, ' ').toUpperCase(),
+            description: 'Project details coming soon...',
+            tools: [],
+            public_link: project.html_url,
+            request_access: 'mailto:flaviapissarra+githubio@gmail.com'
+          };
+        } catch (err) {
+          console.error(`Error loading metadata for ${project.name}:`, err);
+          return {
+            domain: 'PROJECT',
+            title: project.name.replace(/_/g, ' ').toUpperCase(),
+            description: 'Project details coming soon...',
+            tools: [],
+            public_link: project.html_url,
+            request_access: 'mailto:flaviapissarra+githubio@gmail.com'
+          };
+        }
+      })
+    );
+
+    const grid = document.getElementById('projects-grid');
+    if (!grid || projectsData.length === 0) return;
+
+    // Cria a estrutura do carrossel
+    grid.innerHTML = `
+      <div class="carousel-container">
+        <button class="carousel-btn prev" aria-label="Projeto anterior">‹</button>
+        <div class="carousel-track">
+          ${projectsData.map(p => `
+            <div class="carousel-slide">
+              <article class="project-card">
+                <div class="project-domain">${p.domain || 'PROJECT'}</div>
+                <h3>${p.title}</h3>
+                <p>${p.description}</p>
+                ${Array.isArray(p.tools) && p.tools.length > 0 ? `
+                  <div class="project-tools">
+                    ${p.tools.map(t => `<span class="tool-tag">${t}</span>`).join('')}
+                  </div>
+                ` : ''}
+                <div class="project-links">
+                  ${p.public_link ? `<a href="${p.public_link}" target="_blank" rel="noopener" class="project-link">View code →</a>` : ''}
+                  ${p.request_access ? `<a href="${p.request_access}" target="_blank" rel="noopener" class="project-link">Request demo access →</a>` : ''}
+                </div>
+              </article>
+            </div>
+          `).join('')}
+        </div>
+        <button class="carousel-btn next" aria-label="Próximo projeto">›</button>
+        <div class="carousel-dots"></div>
+      </div>
+    `;
+
+    // Inicializa o carrossel
+    initCarousel();
+    
+  } catch (error) {
+    console.error('Error loading projects:', error);
+    const grid = document.getElementById('projects-grid');
+    if (grid) {
+      grid.innerHTML = '<p style="text-align: center; color: var(--color-text-muted);">Unable to load projects. Please try again later.</p>';
+    }
+  }
+}
 
 // ============================================
 // INIT
