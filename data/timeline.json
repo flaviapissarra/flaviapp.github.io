@@ -1,92 +1,103 @@
-[
-  {
-    "id": "postgrad-ifes",
-    "type": "education",
-    "date": "2025",
-    "institution": "IFES",
-    "title": "Graduate Certificate in Special Education Management",
-    "description": "Inclusive practices, bilingual communications, public relations, and educational management strategies.",
-    "icon": ""
+{
+  "startYear": 2011,
+  "endYear": 2026,
+  "categories": {
+    "language-edu": { "label": "Language Education", "color": "#F59E0B" },
+    "formal-edu": { "label": "Formal Education", "color": "#10B981" },
+    "corporate": { "label": "Corporate Experience", "color": "#6B7280" },
+    "teaching": { "label": "Teaching & Translation", "color": "#8B5CF6" },
+    "language-school": { "label": "Language School", "color": "#3B82F6" }
   },
-  {
-    "id": "teacher-numberone",
-    "type": "experience",
-    "date": "2024–2026",
-    "company": "Number One Inglês Completo",
-    "title": "English Teacher (Business & Academic)",
-    "description": "TESOL certified. Specialized instruction for corporate environments. Curriculum development, linguistic analysis (C2), student autonomy.",
-    "icon": "📜"
-  },
-  {
-    "id": "translator-preply",
-    "type": "experience",
-    "date": "2016–Present",
-    "company": "Preply",
-    "title": "Translator & LLM Evaluator",
-    "description": "MTPE, LLM Evaluation, Linguistic Quality Assurance (LQA) for EN/ES/PT datasets. Terminology databases, translation memories, AI training data.",
-    "icon": "🌐"
-  },
-  {
-    "id": "researcher-ifes",
-    "type": "experience",
-    "date": "2020–2023",
-    "company": "IFES",
-    "title": "Researcher (Humanities & Technology)",
-    "description": "Corpus Linguistics, CTecL project leadership, rhythm studies in Brazilian poetry. Translation theory, AI-assisted translation benchmarking.",
-    "icon": "🔬"
-  },
-  {
-    "id": "licentiate-ifes",
-    "type": "education",
-    "date": "2019–2023",
-    "institution": "IFES",
-    "title": "Licentiate Degree in Letters",
-    "description": "Literature & Technology Mediator (HubES+). Corpus Linguistics, rhythm studies, linguistic dataset management for LLM benchmarking.",
-    "icon": "📚"
-  },
-  {
-    "id": "data-arcelor",
-    "type": "experience",
-    "date": "2019",
-    "company": "ArcelorMittal",
-    "title": "Data Scientist Intern",
-    "description": "SQL/Python pipelines (10k+ rows/month). Power BI dashboards, workflow automation. Lead translator for international delegations.",
-    "icon": "📊"
-  },
-  {
-    "id": "data-vale",
-    "type": "experience",
-    "date": "2018",
-    "company": "Vale",
-    "title": "Data Scientist Intern",
-    "description": "JavaScript/SQL automation, UI architecture for internal platforms. Tier-1/2 technical support, incident metrics. English interpreter.",
-    "icon": "⚙️"
-  },
-  {
-    "id": "tech-diploma-ifes",
-    "type": "education",
-    "date": "2015–2018",
-    "institution": "IFES",
-    "title": "Technical Diploma in Computer Science",
-    "description": "Relational databases (SQL), automated dashboards (Power BI), ETL tasks (Python). Bilingual technical communication.",
-    "icon": "💻"
-  },
-  {
-    "id": "english-ufes",
-    "type": "education",
-    "date": "2011–2015",
-    "institution": "Ufes (Núcleo de Línguas)",
-    "title": "English Language and Literature",
-    "description": "Comprehensive 10-semester program. C2 level fluency foundation. Syntax, Semantics, and Phonetics for NLP and Machine Translation.",
-    "icon": "🇬🇧"
-  },
-  {
-    "id": "spanish-cei",
-    "type": "education",
-    "date": "2012–2015",
-    "institution": "Centro Estadual de Idiomas (CEI)",
-    "title": "Spanish Language and Literature",
-    "description": "Intensive 6-semester program (C2 proficiency). Merit-based scholarship for academic immersion in Córdoba, Argentina.",
-    "icon": "🇪🇸"
-  }
-]
+  "rows": [
+    {
+      "id": "ufes-nl",
+      "category": "language-edu",
+      "label": "UFES · NL",
+      "title": "English Language and Literature",
+      "startYear": 2011,
+      "endYear": 2015,
+      "description": "C2 fluency foundation. Syntax, Semantics, Phonetics for NLP and Machine Translation.",
+      "institution": "Ufes (Núcleo de Línguas)"
+    },
+    {
+      "id": "sedu-cei",
+      "category": "language-edu",
+      "label": "SEDU · CEI",
+      "title": "Spanish Language and Literature",
+      "startYear": 2012,
+      "endYear": 2015,
+      "description": "C2 proficiency. Merit scholarship for immersion in Córdoba, Argentina.",
+      "institution": "Centro Estadual de Idiomas"
+    },
+    {
+      "id": "ifes-ti",
+      "category": "formal-edu",
+      "label": "IFES · TI",
+      "title": "Technical Diploma in Computer Science",
+      "startYear": 2015,
+      "endYear": 2018,
+      "description": "SQL, Python, Power BI, ETL. Data Analyst internship + English Teacher Assistant.",
+      "institution": "IFES"
+    },
+    {
+      "id": "ifes-llp",
+      "category": "formal-edu",
+      "label": "IFES · LLP",
+      "title": "Licentiate Degree in Letters",
+      "startYear": 2019,
+      "endYear": 2023,
+      "description": "Corpus Linguistics, rhythm studies, LLM benchmarking. HubES+ mediator.",
+      "institution": "IFES"
+    },
+    {
+      "id": "ifes-geepi",
+      "category": "formal-edu",
+      "label": "IFES · GEEPI",
+      "title": "Graduate Certificate · Special Education",
+      "startYear": 2025,
+      "endYear": 2025,
+      "description": "Inclusive practices, bilingual communications, educational management.",
+      "institution": "IFES"
+    },
+    {
+      "id": "coined",
+      "category": "language-school",
+      "label": "COINED",
+      "title": "Intensive Language Program",
+      "startYear": 2016,
+      "endYear": 2017,
+      "description": "Immersive language training.",
+      "institution": "Coined"
+    },
+    {
+      "id": "vale",
+      "category": "corporate",
+      "label": "VALE",
+      "title": "Data Scientist Intern",
+      "startYear": 2018,
+      "endYear": 2018,
+      "description": "JavaScript/SQL automation, UI architecture. English interpreter for Vale Canada.",
+      "institution": "Vale"
+    },
+    {
+      "id": "amt",
+      "category": "corporate",
+      "label": "AMT",
+      "title": "Data Scientist Intern",
+      "startYear": 2019,
+      "endYear": 2019,
+      "description": "SQL/Python pipelines, Power BI dashboards. Lead translator for international delegations.",
+      "institution": "ArcelorMittal"
+    },
+    {
+      "id": "esl-teacher",
+      "category": "teaching",
+      "label": "ESL Teacher & Translator",
+      "title": "Teaching, Translation & LLM Evaluation",
+      "startYear": 2016,
+      "endYear": 2026,
+      "description": "Preply (Translator/LLM Evaluator) + Number One (Business English Teacher). TESOL certified.",
+      "institution": "Preply · Number One"
+    }
+  ]
+}
