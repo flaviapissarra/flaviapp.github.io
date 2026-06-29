@@ -169,23 +169,121 @@ async function renderTimeline() {
   const data = await loadJSON('data/timeline.json');
   const el = document.getElementById('timeline');
   if (!data || !el) return;
-  
-  el.innerHTML = data.map(i => {
-    // Pega 'company' se for experiência, ou 'institution' se for educação
-    const orgName = k(i, 'company') || k(i, 'institution'); 
-    
-    return `
-    <div class="timeline-item" id="${i.id}">
-      <div class="timeline-dot"></div>
-      <div class="timeline-header">
-        <div class="timeline-type">${k(i, 'type')}</div>
-        <div class="timeline-date">${k(i, 'date')}</div>
-      </div>
-      <h3 class="timeline-title">${k(i, 'title')}</h3>
-      <div class="timeline-company">${orgName}</div>
-      <p class="timeline-description">${k(i, 'description')}</p>
+
+  const { startYear, endYear, categories, rows } = data;
+  const totalYears = endYear - startYear + 1;
+
+  // Filtros por categoria
+  const filtersHTML = `
+    <div class="gantt-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      ${Object.entries(categories).map(([key, cat]) => 
+        `<button class="filter-btn" data-filter="${key}">${cat.label}</button>`
+      ).join('')}
     </div>
-  `}).join('');
+  `;
+
+  // Header com anos
+  const yearsHTML = Array.from({ length: totalYears }, (_, i) => {
+    const year = startYear + i;
+    return `<div class="gantt-year" style="left: ${(i / totalYears) * 100}%">${year}</div>`;
+  }).join('');
+
+  // Linhas (rows)
+  const rowsHTML = rows.map(row => {
+    const cat = categories[row.category];
+    const left = ((row.startYear - startYear) / totalYears) * 100;
+    const width = ((row.endYear - row.startYear + 1) / totalYears) * 100;
+    const isShort = (row.endYear - row.startYear) === 0;
+
+    return `
+      <div class="gantt-row" data-category="${row.category}" data-id="${row.id}">
+        <div class="gantt-row-label">${row.label}</div>
+        <div class="gantt-row-track">
+          <div class="gantt-bar ${isShort ? 'gantt-bar-short' : ''}" 
+               style="left: ${left}%; width: ${width}%; background: ${cat.color};"
+               data-title="${row.title}"
+               data-institution="${row.institution}"
+               data-date="${row.startYear}${row.endYear !== row.startYear ? '–' + row.endYear : ''}"
+               data-description="${row.description}">
+            <span class="gantt-bar-label">${row.label}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  el.innerHTML = `
+    ${filtersHTML}
+    <div class="gantt-container">
+      <div class="gantt-header">
+        ${yearsHTML}
+      </div>
+      <div class="gantt-body">
+        ${rowsHTML}
+      </div>
+    </div>
+    <div class="gantt-legend">
+      ${Object.entries(categories).map(([key, cat]) => 
+        `<div class="legend-item"><span class="legend-color" style="background:${cat.color}"></span>${cat.label}</div>`
+      ).join('')}
+    </div>
+    <div class="gantt-tooltip" id="gantt-tooltip"></div>
+  `;
+
+  initGanttInteractions();
+}
+
+function initGanttInteractions() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const rows = document.querySelectorAll('.gantt-row');
+  const tooltip = document.getElementById('gantt-tooltip');
+  const bars = document.querySelectorAll('.gantt-bar');
+
+  // Filtros
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      rows.forEach(row => {
+        if (filter === 'all' || row.dataset.category === filter) {
+          row.style.display = 'flex';
+          setTimeout(() => row.classList.add('visible'), 10);
+        } else {
+          row.classList.remove('visible');
+          setTimeout(() => row.style.display = 'none', 300);
+        }
+      });
+    });
+  });
+
+  // Tooltip no hover
+  bars.forEach(bar => {
+    bar.addEventListener('mouseenter', (e) => {
+      const title = bar.dataset.title;
+      const institution = bar.dataset.institution;
+      const date = bar.dataset.date;
+      const description = bar.dataset.description;
+      tooltip.innerHTML = `
+        <div class="tooltip-title">${title}</div>
+        <div class="tooltip-institution">${institution}</div>
+        <div class="tooltip-date">${date}</div>
+        <div class="tooltip-description">${description}</div>
+      `;
+      tooltip.classList.add('visible');
+    });
+
+    bar.addEventListener('mousemove', (e) => {
+      const rect = document.querySelector('.gantt-container').getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left + 15) + 'px';
+      tooltip.style.top = (e.clientY - rect.top + 15) + 'px';
+    });
+
+    bar.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('visible');
+    });
+  });
 }
 
 async function renderLanguages() {
