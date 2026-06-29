@@ -170,7 +170,11 @@ async function renderTimeline() {
   const el = document.getElementById('timeline');
   if (!data || !el) return;
   
-  el.innerHTML = data.map(i => `
+  el.innerHTML = data.map(i => {
+    // Pega 'company' se for experiência, ou 'institution' se for educação
+    const orgName = k(i, 'company') || k(i, 'institution'); 
+    
+    return `
     <div class="timeline-item" id="${i.id}">
       <div class="timeline-dot"></div>
       <div class="timeline-header">
@@ -178,10 +182,10 @@ async function renderTimeline() {
         <div class="timeline-date">${k(i, 'date')}</div>
       </div>
       <h3 class="timeline-title">${k(i, 'title')}</h3>
-      <div class="timeline-company">${k(i, 'company')}</div>
+      <div class="timeline-company">${orgName}</div>
       <p class="timeline-description">${k(i, 'description')}</p>
     </div>
-  `).join('');
+  `}).join('');
 }
 
 async function renderLanguages() {
